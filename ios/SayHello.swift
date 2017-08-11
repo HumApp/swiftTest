@@ -17,10 +17,15 @@ class SayHello: NSObject {
 //    name = inputname;
 //  }
 
-  @objc func greetings (name: String) -> Void {
+  @objc func greetings (_ name: String, callback: RCTResponseSenderBlock) -> Void {
 //    return "Hello \(name)"
+    NSLog("%@", name)
+    let ret: [String:Any] = ["name": name];
+    callback([ret])
   }
 }
+
+
 
 //var sayHello = SayHello(inputname : "Theo");
 //sayHello.greetings();

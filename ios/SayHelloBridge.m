@@ -13,6 +13,6 @@
 
 @interface RCT_EXTERN_MODULE(SayHello, NSObject)
 
-RCT_EXTERN_METHOD(greetings: (NSString *)name )
+RCT_EXTERN_METHOD(greetings: (NSString *)name callback: (RCTResponseSenderBlock)callback);
 
 @end

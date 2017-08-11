@@ -11,7 +11,7 @@ import {
   View,
   NativeModules
 } from 'react-native';
-console.dir(NativeModules.SayHello);
+NativeModules.SayHello.greetings('Theo', (name) => {console.log(name);});
 export default class swiftTest extends Component {
   render() {
     return (

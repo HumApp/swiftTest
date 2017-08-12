@@ -36,7 +36,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* swiftTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* swiftTestTests.m */; };
 		500947DB1F3E45EE002789F8 /* SayHello.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500947DA1F3E45EE002789F8 /* SayHello.swift */; };
 		500948021F3E4891002789F8 /* SayHelloBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 500948011F3E4891002789F8 /* SayHelloBridge.m */; };
-		500948041F3E5667002789F8 /* AppleMusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500948031F3E5667002789F8 /* AppleMusicManager.swift */; };
+		500948091F3E6035002789F8 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500948081F3E6035002789F8 /* AuthorizationManager.swift */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -286,9 +286,9 @@
 		500947D91F3E45ED002789F8 /* swiftTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swiftTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		500947DA1F3E45EE002789F8 /* SayHello.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SayHello.swift; sourceTree = "<group>"; };
 		500948011F3E4891002789F8 /* SayHelloBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SayHelloBridge.m; sourceTree = "<group>"; };
-		500948031F3E5667002789F8 /* AppleMusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicManager.swift; sourceTree = "<group>"; };
 		500948061F3E5A10002789F8 /* JSONKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONKeys.swift; sourceTree = "<group>"; };
 		500948071F3E5A10002789F8 /* AppleMusicRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicRequestFactory.swift; sourceTree = "<group>"; };
+		500948081F3E6035002789F8 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -431,7 +431,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				500947DA1F3E45EE002789F8 /* SayHello.swift */,
-				500948031F3E5667002789F8 /* AppleMusicManager.swift */,
+				500948081F3E6035002789F8 /* AuthorizationManager.swift */,
 				500948011F3E4891002789F8 /* SayHelloBridge.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -627,6 +627,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = LNQ22YF8UB;
 						LastSwiftMigration = 0900;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -993,9 +994,9 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				500948021F3E4891002789F8 /* SayHelloBridge.m in Sources */,
-				500948041F3E5667002789F8 /* AppleMusicManager.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				500947DB1F3E45EE002789F8 /* SayHello.swift in Sources */,
+				500948091F3E6035002789F8 /* AuthorizationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,7 +1091,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = LNQ22YF8UB;
 				INFOPLIST_FILE = swiftTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1111,7 +1114,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LNQ22YF8UB;
 				INFOPLIST_FILE = swiftTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

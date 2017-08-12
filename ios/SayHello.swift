@@ -19,7 +19,7 @@ class SayHello: NSObject {
 
   @objc func greetings (_ name: String, callback: RCTResponseSenderBlock) -> Void {
 //    return "Hello \(name)"
-    NSLog("%@", name)
+    NSLog("Hello %@", name)
     let ret: [String:Any] = ["name": name];
     callback([ret])
   }

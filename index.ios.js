@@ -11,9 +11,11 @@ import {
   View,
   NativeModules
 } from 'react-native';
-NativeModules.SayHello.greetings('Theo', (name) => {console.log(name);});
-NativeModules.AuthorizationManager.requestCloudServiceAuthorization((token) => console.log('PLS WORK', token));
-console.dir(NativeModules);
+// NativeModules.SayHello.greetings('Theo', (name) => {console.log(name);});
+NativeModules.AuthorizationManager.requestCloudServiceAuthorization('test String', (stuff) => {console.log(stuff);});
+NativeModules.AuthorizationManager.requestMediaLibraryAuthorization(stuff => console.log('medialib', stuff));
+NativeModules.AuthorizationManager.requestUserToken(stuff => console.log(stuff));
+// console.dir(NativeModules);
 export default class swiftTest extends Component {
   render() {
     return (

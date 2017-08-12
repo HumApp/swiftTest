@@ -51,66 +51,70 @@ class AuthorizationManager: NSObject {
   
   // MARK: Initialization
   
-//  init() {
-//
-//    super.init()
-//
-//    let notificationCenter = NotificationCenter.default
-//
-//    /*
-//     It is important that your application listens to the `SKCloudServiceCapabilitiesDidChangeNotification` and
-//     `SKStorefrontCountryCodeDidChangeNotification` notifications so that your application can update its state and functionality
-//     when these values change if needed.
-//     */
-//
-//    notificationCenter.addObserver(self,
-//                                   selector: #selector(requestCloudServiceCapabilities),
-//                                   name: .SKCloudServiceCapabilitiesDidChange,
-//                                   object: nil)
+  override init() {
+
+    super.init()
+
+    let notificationCenter = NotificationCenter.default
+
+    /*
+     It is important that your application listens to the `SKCloudServiceCapabilitiesDidChangeNotification` and
+     `SKStorefrontCountryCodeDidChangeNotification` notifications so that your application can update its state and functionality
+     when these values change if needed.
+     */
+
+    notificationCenter.addObserver(self,
+                                   selector: #selector(requestCloudServiceCapabilities),
+                                   name: .SKCloudServiceCapabilitiesDidChange,
+                                   object: nil)
 //    if #available(iOS 11.0, *) {
 //      notificationCenter.addObserver(self,
 //                                     selector: #selector(requestStorefrontCountryCode),
 //                                     name: .SKStorefrontCountryCodeDidChange,
 //                                     object: nil)
 //    }
-//
-//    /*
-//     If the application has already been authorized in a previous run or manually by the user then it can request
-//     the current set of `SKCloudServiceCapability` and Storefront Identifier.
-//     */
-//    if SKCloudServiceController.authorizationStatus() == .authorized {
-//      requestCloudServiceCapabilities()
-//
-//      /// Retrieve the Music User Token for use in the application if it was stored from a previous run.
-//      if let token = UserDefaults.standard.string(forKey: AuthorizationManager.userTokenUserDefaultsKey) {
-//        userToken = token
-//      } else {
-//        /// The token was not stored previously then request one.
+
+    /*
+     If the application has already been authorized in a previous run or manually by the user then it can request
+     the current set of `SKCloudServiceCapability` and Storefront Identifier.
+     */
+    if SKCloudServiceController.authorizationStatus() == .authorized {
+      requestCloudServiceCapabilities()
+
+      /// Retrieve the Music User Token for use in the application if it was stored from a previous run.
+      if let token = UserDefaults.standard.string(forKey: AuthorizationManager.userTokenUserDefaultsKey) {
+        userToken = token
+      } else {
+        /// The token was not stored previously then request one.
 //        requestUserToken()
-//      }
-//    }
-//  }
-//
-//  deinit {
-//    // Remove all notification observers.
-//    let notificationCenter = NotificationCenter.default
-//
-//    notificationCenter.removeObserver(self, name: .SKCloudServiceCapabilitiesDidChange, object: nil)
-//
-//    if #available(iOS 11.0, *) {
-//      notificationCenter.removeObserver(self, name: .SKStorefrontCountryCodeDidChange, object: nil)
-//    }
-//
-//  }
+      }
+    }
+  }
+
+  deinit {
+    // Remove all notification observers.
+    let notificationCenter = NotificationCenter.default
+
+    notificationCenter.removeObserver(self, name: .SKCloudServiceCapabilitiesDidChange, object: nil)
+
+    if #available(iOS 11.0, *) {
+      notificationCenter.removeObserver(self, name: .SKStorefrontCountryCodeDidChange, object: nil)
+    }
+
+  }
   
   // MARK: Authorization Request Methods
   
-  @objc func requestCloudServiceAuthorization(_ callback: RCTResponseSenderBlock) -> Void {
+  @objc func requestCloudServiceAuthorization(_ testString: String, callback: RCTResponseSenderBlock) -> Void {
     /*
      An application should only ever call `SKCloudServiceController.requestAuthorization(_:)` when their
      current authorization is `SKCloudServiceAuthorizationStatusNotDetermined`
      */
-    guard SKCloudServiceController.authorizationStatus() == .notDetermined else { return }
+    guard SKCloudServiceController.authorizationStatus() == .notDetermined else {
+      
+      NSLog("not determined")
+      return
+    }
     
     /*
      `SKCloudServiceController.requestAuthorization(_:)` triggers a prompt for the user asking if they wish to allow the application
@@ -126,7 +130,7 @@ class AuthorizationManager: NSObject {
       switch authorizationStatus {
       case .authorized:
         self?.requestCloudServiceCapabilities()
-        self?.requestUserToken()
+//        self?.requestUserToken()
       default:
         break
       }
@@ -211,7 +215,7 @@ class AuthorizationManager: NSObject {
 //    }
 //  }
   
-  func requestUserToken() {
+  @objc func requestUserToken(_ callback: @escaping RCTResponseSenderBlock) {
     guard let developerToken = self.fetchDeveloperToken() else {
       return
     }
@@ -228,9 +232,12 @@ class AuthorizationManager: NSObject {
           print("Unexpected value from SKCloudServiceController for user token.")
           return
         }
+        let result: [String: Any] = ["token": token]
+        callback([result])
         
         self?.userToken = token
-        
+        NSLog("TOKEN:", token)
+        print("TOKENF:", token)
         /// Store the Music User Token for future use in your application.
         let userDefaults = UserDefaults.standard
         
@@ -250,6 +257,7 @@ class AuthorizationManager: NSObject {
         cloudServiceController.requestPersonalizationToken(forClientToken: developerToken, withCompletionHandler: completionHandler)
       }
     }
+    else { callback([]) }
   }
   
 //  func determineRegionWithDeviceLocale(completion: @escaping (String?, Error?) -> Void) {

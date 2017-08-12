@@ -17,7 +17,8 @@ import Foundation
 import StoreKit
 import MediaPlayer
 
-@objcMembers
+//@objcMembers
+@objc(AuthorizationManager)
 class AuthorizationManager: NSObject {
   
   // MARK: Types
@@ -104,7 +105,7 @@ class AuthorizationManager: NSObject {
   
   // MARK: Authorization Request Methods
   
-  func requestCloudServiceAuthorization() {
+  @objc func requestCloudServiceAuthorization(_ callback: RCTResponseSenderBlock) -> Void {
     /*
      An application should only ever call `SKCloudServiceController.requestAuthorization(_:)` when their
      current authorization is `SKCloudServiceAuthorizationStatusNotDetermined`
@@ -132,6 +133,8 @@ class AuthorizationManager: NSObject {
       
       NotificationCenter.default.post(name: AuthorizationManager.authorizationDidUpdateNotification, object: nil)
     }
+    let callVar : [String:Any] = ["userToken": userToken]
+    callback([callVar])
   }
   
   func fetchDeveloperToken() -> String? {
@@ -141,7 +144,7 @@ class AuthorizationManager: NSObject {
     return developerAuthenticationToken
   }
   
-  func requestMediaLibraryAuthorization() {
+  @objc func requestMediaLibraryAuthorization(_ callback: RCTResponseSenderBlock) {
     /*
      An application should only ever call `MPMediaLibrary.requestAuthorization(_:)` when their
      current authorization is `MPMediaLibraryAuthorizationStatusNotDetermined`
@@ -159,6 +162,7 @@ class AuthorizationManager: NSObject {
     MPMediaLibrary.requestAuthorization { (_) in
       NotificationCenter.default.post(name: AuthorizationManager.cloudServiceDidUpdateNotification, object: nil)
     }
+    callback([])
   }
   
   // MARK: `SKCloudServiceController` Related Methods

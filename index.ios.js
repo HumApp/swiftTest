@@ -12,6 +12,8 @@ import {
   NativeModules
 } from 'react-native';
 NativeModules.SayHello.greetings('Theo', (name) => {console.log(name);});
+NativeModules.AuthorizationManager.requestCloudServiceAuthorization((token) => console.log('PLS WORK', token));
+console.dir(NativeModules);
 export default class swiftTest extends Component {
   render() {
     return (
